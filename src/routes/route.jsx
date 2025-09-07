@@ -7,6 +7,12 @@ import NotFoundPage from "../page/NotFoundPage";
 import productListLoader from "../feature/product/productListLoader";
 import productLoader from "../feature/product/productLoader";
 import CheckoutPage from "../page/CheckoutPage";
+import MerchantLayout from "../layouts/MercantLayout";
+
+import MerchantProduct from "../feature/merchant/MerchantProduct";
+import MerchantOrder from "../feature/merchant/MerchantOrder";
+import MerchantDashboard from "../feature/merchant/MerchantDashbord";
+import MerchantWallet from "../feature/merchant/MerchantWallet";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +28,28 @@ const router = createBrowserRouter([
       { path: "cart", element: <CartPage /> },
       { path: "checkout", element: <CheckoutPage /> },
       { path: "*", element: <NotFoundPage /> },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <MerchantLayout />,
+    children: [
+      {
+        index: true,
+        element: <MerchantDashboard />,
+      },
+      {
+        path: "products",
+        element: <MerchantProduct />,
+      },
+      {
+        path: "orders",
+        element: <MerchantOrder />,
+      },
+      {
+        path: "wallet",
+        element: <MerchantWallet />,
+      },
     ],
   },
 ]);

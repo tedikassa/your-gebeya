@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <nav className="flex items-center justify-between h-19 bg-white shadow-sm">
-      <Link to="/">
-        <div className="font-bold text-3xl">your ገበያ</div>
+      <Link className="p-4 flex justify-center items-center" to="/">
+        <h1
+          className="text-4xl font-extrabold bg-clip-text text-transparent 
+                 bg-gradient-to-r  from-green-500 via-yellow-400 to-red-500
+                 drop-shadow-lg"
+        >
+          your ገበያ
+        </h1>
       </Link>
       <div className="flex items-center justify-between flex-1 mx-8 max-w-120">
         <input
