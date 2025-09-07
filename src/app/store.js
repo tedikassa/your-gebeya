@@ -5,3 +5,7 @@ export const store = configureStore({
     cart: cartReducer,
   },
 });
+
+// git remote add origin https://github.com/tedikassa/your-gebey.git
+// git branch -M main
+// git push -u origin main
