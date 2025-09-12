@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "../layouts/AppLayout";
-import HomePage from "../page/Homepage";
+
 import ProductPage from "../feature/product/ProductPage";
 import CartPage from "../feature/cart/CartPage";
 import NotFoundPage from "../page/NotFoundPage";
@@ -33,7 +33,7 @@ import deleteProductAction from "../feature/merchant/deleteproductAction";
 import UserOrders from "../feature/order/UserOrder";
 import userOrderLoader from "../feature/order/userOrderloader";
 import ProtectedRoute from "../page/ProtectedRoute";
-
+import HomePage from "../page/HomePage";
 const router = createBrowserRouter([
   {
     path: "/",
