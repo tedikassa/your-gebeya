@@ -3,7 +3,7 @@ import Buttton from "./Buttton";
 
 function ProductCard({ product }) {
   const { ID, name, price, stock, images } = product;
-  const image1 = images[1].url;
+  const image1 = images[0]?.url;
   return (
     <div className="flex flex-col shadow-md bg-stone-50 border p-3 border-stone-200 rounded-sm ">
       <Link to={`/product/${ID}`}>

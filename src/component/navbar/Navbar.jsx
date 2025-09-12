@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/auth");
+  }
   return (
     <nav className="flex items-center justify-between h-19 bg-white shadow-sm">
       <Link className="p-4 flex justify-center items-center" to="/">
@@ -19,20 +26,26 @@ function Navbar() {
         />
 
         <Link
+          to="/orders"
           className="ml-4 font-medium bg-stone-200 px-8 py-1.5 text-black rounded-full hover:bg-stone-300 capitalize"
-          to="/order"
         >
           Orders
         </Link>
       </div>
       <div className=" flex items-center justify-between space-x-6 ">
-        <Link
-          className="flex flex-col text-stone-700 text-xs px-5 py-1.5 hover:border transition"
-          to="/auth"
-        >
-          <div>Log in/</div>
-          <div>Sign up</div>
-        </Link>
+        <div>
+          <span className="text-gray-600 mr-4">Hello, {user?.name}</span>
+          <Link to="/auth">
+            <button
+              onClick={() => {
+                handleLogout();
+              }}
+              className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              Logout
+            </button>
+          </Link>
+        </div>
         <Link className="mr-8" to="/cart">
           cart
         </Link>

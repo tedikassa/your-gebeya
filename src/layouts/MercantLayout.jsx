@@ -1,6 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 export default function MerchantLayout() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/auth");
+  }
   return (
     <div className="flex min-h-screen">
       <aside className="flex h-screen flex-col w-60 gap-3 bg-gray-800 text-white p-4 sticky top-0 z-50">
@@ -21,6 +28,12 @@ export default function MerchantLayout() {
           >
             Orders
           </Link>
+          <Link
+            className="text-stone-300 hover:text-white"
+            to="/dashboard/wallet"
+          >
+            Wallet
+          </Link>
         </nav>
       </aside>
       <div className="flex-1 flex flex-col ">
@@ -32,11 +45,19 @@ export default function MerchantLayout() {
           >
             your ገበያ
           </h1>
+
           <div>
-            <span className="text-gray-600 mr-4">Hello, Merchant</span>
-            <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-              Logout
-            </button>
+            <span className="text-gray-600 mr-4">Hello, {user?.name}</span>
+            <Link to="/auth">
+              <button
+                onClick={() => {
+                  handleLogout();
+                }}
+                className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </Link>
           </div>
         </header>
 

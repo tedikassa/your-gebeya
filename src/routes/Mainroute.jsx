@@ -32,75 +32,79 @@ import loginAction from "../feature/auth/loginAction";
 import deleteProductAction from "../feature/merchant/deleteproductAction";
 import UserOrders from "../feature/order/UserOrder";
 import userOrderLoader from "../feature/order/userOrderloader";
-import ProtectedRoute from "../page/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProtectedRoute />,
+    element: <AppLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <HomePage />, loader: productListLoader },
+      {
+        path: "product/:id",
+        element: <ProductPage />,
+        loader: productLoader,
+      },
+      { path: "cart", element: <CartPage /> },
+      { path: "checkout", element: <CheckoutPage />, action: orderAction },
+      {
+        path: "orders",
+        element: <UserOrders />,
+        loader: userOrderLoader,
+      },
+      { path: "*", element: <NotFoundPage /> },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <MerchantLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
-        element: <AppLayout />,
-        errorElement: <ErrorPage />,
-        children: [
-          { index: true, element: <HomePage />, loader: productListLoader },
-          {
-            path: "product/:id",
-            element: <ProductPage />,
-            loader: productLoader,
-          },
-          { path: "cart", element: <CartPage /> },
-          { path: "checkout", element: <CheckoutPage />, action: orderAction },
-          { path: "orders", element: <UserOrders />, loader: userOrderLoader },
-        ],
+        index: true,
+        element: <MerchantDashboard />,
+        loader: merchantDashboardLoader,
       },
       {
-        path: "/dashboard",
-        element: <MerchantLayout />,
-        errorElement: <ErrorPage />,
-        children: [
-          {
-            index: true,
-            element: <MerchantDashboard />,
-            loader: merchantDashboardLoader,
-          },
-          {
-            path: "products",
-            element: <MerchantProduct />,
-            loader: merchantProductLoader,
-            action: deleteProductAction,
-          },
-          {
-            path: "orders",
-            element: <MerchantOrder />,
-            loader: merchantOrderLoader,
-            action: deliveryAction,
-          },
-          {
-            path: "wallet",
-            element: <MerchantWallet />,
-            loader: merchantWalletLoader,
-          },
-          {
-            path: "product/form",
-            element: <ProductForm />,
-            action: productFormAction,
-          },
-        ],
+        path: "products",
+        element: <MerchantProduct />,
+        loader: merchantProductLoader,
+        action: deleteProductAction,
+      },
+      {
+        path: "orders",
+        element: <MerchantOrder />,
+        loader: merchantOrderLoader,
+        action: deliveryAction,
+      },
+      {
+        path: "wallet",
+        element: <MerchantWallet />,
+        loader: merchantWalletLoader,
+      },
+      {
+        path: "product/form",
+        element: <ProductForm />,
+        action: productFormAction,
       },
     ],
   },
   {
-    path: "/auth",
-    element: <AuthLayout />, // Public routes
+    path: "auth",
+    element: <AuthLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Login />, action: loginAction },
-      { path: "signup", element: <SignUp />, action: signupAction },
+      {
+        index: true,
+        element: <Login />,
+        action: loginAction,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+        action: signupAction,
+      },
     ],
   },
-  { path: "*", element: <NotFoundPage /> }, // fallback
 ]);
-
 export default router;

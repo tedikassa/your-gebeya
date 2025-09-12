@@ -1,39 +1,14 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Form, Link, useNavigation } from "react-router-dom";
 
 function CheckoutPage() {
-  //  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
   const items = useSelector((state) => state.cart.items);
   const totalPrice = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
-  // simple form state
-  const [form, setForm] = useState({
-    name: "",
-    address: "",
-    email: "",
-  });
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handlePlaceOrder = (e) => {
-    e.preventDefault();
-    if (!form.name || !form.address || !form.email) {
-      alert("Please fill out all fields");
-      return;
-    }
-    // Here you would send order to backend
-    console.log("Order placed:", { form, items, totalPrice });
-    //dispatch(clearCart());
-    navigate("/thank-you"); // or navigate back to homepage
-  };
-
   if (items.length === 0) {
     return (
       <div className="text-center py-20">
@@ -73,8 +48,8 @@ function CheckoutPage() {
         </div>
 
         {/* Shipping form */}
-        <form
-          onSubmit={handlePlaceOrder}
+        <Form
+          method="POST"
           className="bg-stone-50 border rounded-lg shadow-sm p-6 space-y-4"
         >
           <h2 className="text-xl font-semibold mb-4">Shipping Info</h2>
@@ -82,8 +57,6 @@ function CheckoutPage() {
             <label className="block text-sm font-medium mb-1">Full Name</label>
             <input
               name="name"
-              value={form.name}
-              onChange={handleChange}
               className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stone-300"
               required
             />
@@ -92,8 +65,6 @@ function CheckoutPage() {
             <label className="block text-sm font-medium mb-1">Address</label>
             <input
               name="address"
-              value={form.address}
-              onChange={handleChange}
               className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stone-300"
               required
             />
@@ -103,23 +74,21 @@ function CheckoutPage() {
             <input
               type="email"
               name="email"
-              value={form.email}
-              onChange={handleChange}
               className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stone-300"
               required
             />
           </div>
 
           <button
+            disabled={isSubmitting}
             type="submit"
             className="w-full mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
           >
-            Place Order
+            {isSubmitting ? "Ordering..." : "Place Order"}
           </button>
-        </form>
+        </Form>
       </div>
     </div>
   );
 }
-
 export default CheckoutPage;

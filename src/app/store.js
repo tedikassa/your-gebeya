@@ -1,11 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "../feature/cart/cartSlice";
+import productReducer from "../feature/merchant/productSlice";
+
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
+    product: productReducer,
   },
 });
-
-// git remote add origin https://github.com/tedikassa/your-gebey.git
-// git branch -M main
-// git push -u origin main

@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, removeFromCart } from "./cartSlice";
+import {
+  clearCart,
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "./cartSlice";
 import { Link } from "react-router-dom";
 
 function CartPage() {
@@ -50,14 +55,14 @@ function CartPage() {
             {/* Quantity Controls */}
             <div className="flex items-center gap-2">
               <button
-                //onClick={() => dispatch(decreaseQty(item.ID))}
+                onClick={() => dispatch(decreaseQuantity(item.ID))}
                 className="px-2 py-1 bg-stone-300 rounded hover:bg-stone-400"
               >
                 -
               </button>
               <span className="px-3">{item.quantity}</span>
               <button
-                //onClick={() => dispatch(increaseQty(item.ID))}
+                onClick={() => dispatch(increaseQuantity(item.ID))}
                 className="px-2 py-1 bg-stone-300 rounded hover:bg-stone-400"
               >
                 +
