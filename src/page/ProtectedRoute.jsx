@@ -23,17 +23,8 @@ const ProtectedRoute = () => {
 
   // ✅ Role-based redirect
   if (user.Role === "merchant") {
-    // Merchant should always go to dashboard root
-    if (window.location.pathname.startsWith("/dashboard")) {
-      // already in dashboard → render children
-      return <Outlet />;
-    }
     return <Navigate to="/dashboard" replace />;
   } else {
-    // Normal user should always go to /
-    if (window.location.pathname === "/") {
-      return <Outlet />;
-    }
     return <Navigate to="/" replace />;
   }
 };
