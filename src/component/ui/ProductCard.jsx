@@ -8,7 +8,7 @@ function ProductCard({ product }) {
     <div className="flex flex-col shadow-md bg-stone-50 border p-3 border-stone-200 rounded-sm ">
       <Link to={`/product/${ID}`}>
         <div className="h-50">
-          <img className="w-full p-1.5" src={image1} />
+          <img className="w-full h-full p-1.5" src={image1} />
         </div>
       </Link>
       <div className="text-xs text-center text-stone-600 ">{name}</div>
